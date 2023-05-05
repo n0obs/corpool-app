@@ -5,5 +5,11 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_create_trip">Criar viagem</string>
     <string name="title_view_trips">Caronas\n</string>
-    <string name="your_trips">Suas Viagens</string>
+    <string name="your_trips">Viagens</string>
+    <string name="tv_destiny">Definir destino</string>
+    <string name="et_destiny">Digite o endereço</string>
+    <string name="tv_price">Preço:</string>
+    <string name="et_price">100.00</string>
+    <string name="btn_create_trip">Criar viagem</string>
+    <string name="tv_trip_date">Data saida:</string>
 </resources>

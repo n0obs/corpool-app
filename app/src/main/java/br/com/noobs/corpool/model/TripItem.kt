@@ -7,4 +7,5 @@ data class TripItem(
     val address: String,
     val date: ZonedDateTime,
     val location: Location,
+    val price: Double,
 )
