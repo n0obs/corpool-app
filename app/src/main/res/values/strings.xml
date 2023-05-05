@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">CorPool</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_create_trip">Criar viagem</string>
+    <string name="title_view_trips">Caronas\n</string>
+    <string name="your_trips">Suas Viagens</string>
+</resources>
