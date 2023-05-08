@@ -24,11 +24,7 @@ class HomeFragment : Fragment() {
 
         val recyclerView = homeViewModel.findViewById<RecyclerView>(R.id.rv_trips)
         recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-
-
-        val tripAdapter = TripAdapter(inflater.context, getTripItems().toMutableList())
-
-        recyclerView.adapter = tripAdapter
+        recyclerView.adapter = TripAdapter(inflater.context, getTripItems().toMutableList())
         return homeViewModel
     }
 

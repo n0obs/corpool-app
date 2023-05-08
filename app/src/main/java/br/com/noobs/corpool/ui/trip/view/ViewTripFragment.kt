@@ -83,11 +83,9 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
         recyclerView.layoutManager = LinearLayoutManager(inflater.context)
 
 
-        val tripAdapter = TripAdapter(inflater.context, OPTIONS) {
+        recyclerView.adapter =  TripAdapter(inflater.context, OPTIONS) {
             onClickTripItem(it)
         }
-
-        recyclerView.adapter = tripAdapter
 
 
         etSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -97,8 +95,7 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
                 }.toMutableList()
                 recyclerView.layoutManager = LinearLayoutManager(inflater.context)
                 recyclerView.adapter = TripAdapter(inflater.context, filteredList) {
-                    filteredList.remove(it)
-                    onClickTripItem(it)
+                    onClickTripItem(it, filteredList)
                 }
                 return true
             }
@@ -109,8 +106,7 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
                 }.toMutableList()
                 recyclerView.layoutManager = LinearLayoutManager(inflater.context)
                 recyclerView.adapter = TripAdapter(inflater.context, filteredList) {
-                    filteredList.remove(it)
-                    onClickTripItem(it)
+                    onClickTripItem(it, filteredList)
                 }
                 return true
             }
@@ -121,6 +117,7 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
 
     private fun onClickTripItem(
         it: TripItem,
+        filteredList: MutableList<TripItem>? = null
     ) {
         val db = DatabaseManager(this.requireContext(), "trips")
 
@@ -130,6 +127,7 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
             .setPositiveButton("Sim") { _, _ ->
                 db.insertTrip(it)
                 OPTIONS.remove(it)
+                filteredList?.remove(it)
                 recyclerView.adapter?.notifyDataSetChanged()
             }.show()
     }

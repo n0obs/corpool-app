@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView.OnEditorActionListener
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -65,21 +66,45 @@ class CreateTripFragment : Fragment() {
         }
 
 
-        val autoCompleteFragment = childFragmentManager.findFragmentById(R.id.et_destiny) as AutocompleteSupportFragment
+        val autoCompleteFragment =
+            childFragmentManager.findFragmentById(R.id.et_destiny) as AutocompleteSupportFragment
 
-        autoCompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG))
+        autoCompleteFragment.setPlaceFields(
+            listOf(
+                Place.Field.ID,
+                Place.Field.NAME,
+                Place.Field.LAT_LNG
+            )
+        )
         autoCompleteFragment.setHint("buscar...")
 
         autoCompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onPlaceSelected(place: Place) {
-                selectedLoc = Location(place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
-                val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+                selectedLoc =
+                    Location(place.name!!, place.latLng!!.latitude, place.latLng!!.longitude)
+                val mapFragment =
+                    childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
                 mapFragment.getMapAsync { googleMap ->
                     googleMap.clear()
-                    googleMap.addMarker(MarkerOptions().position(LatLng(selectedLoc!!.latitude, selectedLoc!!.longitude)).title(selectedLoc!!.name))
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(selectedLoc!!.latitude, selectedLoc!!.longitude), 15f))
+                    googleMap.addMarker(
+                        MarkerOptions().position(
+                            LatLng(
+                                selectedLoc!!.latitude,
+                                selectedLoc!!.longitude
+                            )
+                        ).title(selectedLoc!!.name)
+                    )
+                    googleMap.moveCamera(
+                        CameraUpdateFactory.newLatLngZoom(
+                            LatLng(
+                                selectedLoc!!.latitude,
+                                selectedLoc!!.longitude
+                            ), 15f
+                        )
+                    )
                 }
             }
+
             override fun onError(status: Status) {
                 Log.i("TAG", "An error occurred: $status")
             }
@@ -105,7 +130,9 @@ class CreateTripFragment : Fragment() {
     }
 
     private fun onCreateTripBtnClick() {
-        validateData()
+        if (!validateData()) {
+            return
+        }
         insertOnDatabase()
         moveToViewHomeViewFragment()
     }
@@ -128,61 +155,29 @@ class CreateTripFragment : Fragment() {
         db.insertTrip(trip)
     }
 
-    private fun validateData() {
-        if (selectedDate == null) {
-            dateBtn.error = "Selecione uma data"
-
-        }
-        if (selectedTime == null) {
-            timeBtn.error = "Selecione uma hora"
-        }
+    private fun validateData(): Boolean {
         if (selectedLoc == null) {
-            val addressEt = view?.findViewById<EditText>(R.id.et_destiny)
-            addressEt?.error = "Selecione um destino"
+            Toast.makeText(this.requireContext(), "Selecione um destino", Toast.LENGTH_SHORT)
+                .show()
+            return false
         }
         val priceEt = view?.findViewById<EditText>(R.id.et_price)
         if (priceEt!!.text.toString().isEmpty()) {
             priceEt.error = "Digite um preço"
+            return false
         }
+        if (selectedDate == null) {
+            dateBtn.error = "Selecione uma data"
+            return false
+
+        }
+        if (selectedTime == null) {
+            timeBtn.error = "Selecione uma hora"
+            return false
+        }
+        return true
     }
 
-    private fun buildMap(
-        mapFragment: SupportMapFragment,
-        addressEt: EditText,
-        inflater: LayoutInflater
-    ) = OnEditorActionListener { _, actionId, event ->
-        if (actionId == EditorInfo.IME_ACTION_SEARCH
-            || actionId == EditorInfo.IME_ACTION_DONE
-            || event != null
-            && event.action == KeyEvent.ACTION_DOWN
-            && event.keyCode == KeyEvent.KEYCODE_ENTER
-        ) {
-            if (event == null || !event.isShiftPressed) {
-
-                mapFragment.getMapAsync { googleMap ->
-                    val location = addressEt.text.toString()
-                    val geoCoder = Geocoder(inflater.context, Locale.getDefault())
-                    val addressList = geoCoder.getFromLocationName(location, 1)
-                    if (addressList != null && addressList.size > 0) {
-                        val address = addressList[0]
-                        val latLng = LatLng(address.latitude, address.longitude)
-                        googleMap.addMarker(
-                            MarkerOptions().position(latLng)
-                                .title(address.getAddressLine(0))
-                        )
-                        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17f))
-                        selectedLoc = Location(
-                            address.getAddressLine(0),
-                            address.latitude,
-                            address.longitude
-                        )
-                    }
-                }
-                return@OnEditorActionListener true // consume.
-            }
-        }
-        false
-    }
 
     private fun openDateDialog() {
         val now = Calendar.getInstance()
@@ -221,11 +216,6 @@ class CreateTripFragment : Fragment() {
         super.onDestroy()
         Places.deinitialize()
     }
-
-
-
-
-
 
 
 }
