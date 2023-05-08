@@ -2,17 +2,13 @@ package br.com.noobs.corpool.ui.trip.create
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
