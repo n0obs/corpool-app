@@ -11,8 +11,11 @@ import br.com.noobs.corpool.model.TripItem
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class TripAdapter(private val context: Context,
-                  private val trips: MutableList<TripItem>): RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
+class TripAdapter(
+    private val context: Context,
+    private val trips: MutableList<TripItem>,
+    private val clickListener: ((TripItem) -> Unit)? = null
+) : RecyclerView.Adapter<TripAdapter.TripViewHolder>() {
 
     inner class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val address: TextView = itemView.findViewById(R.id.tv_address)
@@ -24,10 +27,15 @@ class TripAdapter(private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TripViewHolder {
         val itemList = LayoutInflater.from(context).inflate(R.layout.trip_item, parent, false)
-        return TripViewHolder(itemList)
+        val vh =  TripViewHolder(itemList)
+
+        vh.itemView.setOnClickListener {
+            clickListener?.invoke(trips[vh.adapterPosition])
+        }
+        return vh
     }
 
-    override fun getItemCount(): Int =  trips.size
+    override fun getItemCount(): Int = trips.size
 
     override fun onBindViewHolder(holder: TripViewHolder, position: Int) {
         val item = trips[position]

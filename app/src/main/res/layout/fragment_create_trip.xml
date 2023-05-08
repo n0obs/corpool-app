@@ -16,10 +16,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <fragment
         android:id="@+id/et_destiny"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         android:hint="@string/et_destiny"
@@ -58,12 +59,14 @@
         android:layout_marginStart="20dp"
         app:layout_constraintTop_toBottomOf="@id/map"
         android:inputType="numberDecimal"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_disabled"
         android:textAlignment="textEnd"
         android:hint="@string/et_price"
         />
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -76,7 +79,38 @@
             android:textSize="20sp"
             android:text="@string/tv_trip_date"/>
 
+        <Button
+            android:id="@+id/btn_select_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="@string/empty_data"/>
 
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_date_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintTop_toBottomOf="@id/ll_date">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/tv_trip_date_time"/>
+
+        <Button
+            android:id="@+id/btn_select_date_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:text="@string/empty_data"/>
 
 
     </LinearLayout>

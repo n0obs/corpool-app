@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.noobs.corpool.R
 import br.com.noobs.corpool.adapter.TripAdapter
-import br.com.noobs.corpool.model.Location
+import br.com.noobs.corpool.database.DatabaseManager
 import br.com.noobs.corpool.model.TripItem
-import java.time.LocalDateTime
-import java.time.ZonedDateTime
 
 class HomeFragment : Fragment() {
 
@@ -28,34 +26,14 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(inflater.context)
 
 
-        val tripList = ArrayList<TripItem>()
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-        tripList.add(TripItem(1, "Rua da Consolação, 930", ZonedDateTime.now(), Location(1.0, 1.0), 100.0))
-
-
-        val tripAdapter = TripAdapter(inflater.context, tripList)
+        val tripAdapter = TripAdapter(inflater.context, getTripItems().toMutableList())
 
         recyclerView.adapter = tripAdapter
-
-
-
-
-
         return homeViewModel
-
-
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    private fun getTripItems(): List<TripItem> {
+        val db = DatabaseManager(this.requireContext(), "trips")
+        return db.getAll()
     }
 }

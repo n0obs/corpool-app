@@ -15,10 +15,18 @@
         android:id="@+id/navigation_create_trip"
         android:name="br.com.noobs.corpool.ui.trip.create.CreateTripFragment"
         android:label="@string/title_create_trip"
-        tools:layout="@layout/fragment_create_trip" />
+        tools:layout="@layout/fragment_create_trip" >
+        <action
+            android:id="@+id/action_navigation_create_trip_to_navigation_home"
+            app:destination="@id/navigation_home"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
 
     <fragment
-        android:id="@+id/view_trips"
+        android:id="@+id/navigation_view_trips"
         android:name="br.com.noobs.corpool.ui.trip.view.ViewTripFragment"
         android:label="@string/title_view_trips"
         tools:layout="@layout/fragment_view_trip" />

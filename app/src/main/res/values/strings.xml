@@ -12,4 +12,9 @@
     <string name="et_price">100.00</string>
     <string name="btn_create_trip">Criar viagem</string>
     <string name="tv_trip_date">Data saida:</string>
+    <string name="tv_trip_date_time">Hora saída:</string>
+    <string name="btn_select_date_time">DEFINIR</string>
+    <string name="empty_data">...</string>
+    <string name="search_trips">Buscar</string>
+    <string name="et_search_hint">Digite para onde deseja ir</string>
 </resources>

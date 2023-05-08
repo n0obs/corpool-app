@@ -21,7 +21,8 @@
         android:id="@+id/rv_trips"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:paddingBottom="100dp"
         app:layout_constraintEnd_toEndOf="@id/tv_your_trips"
         app:layout_constraintStart_toStartOf="@id/tv_your_trips"
         app:layout_constraintTop_toBottomOf="@id/tv_your_trips" />
