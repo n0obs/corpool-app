@@ -67,6 +67,7 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
 
 
     private lateinit var viewModel: ViewTripViewModel
+    private lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -77,52 +78,60 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
         val etSearch = view.findViewById<SearchView>(R.id.et_search_trips)
         etSearch.clearFocus()
 
-        // ON CLICK FILTER LIST
+
+        recyclerView = view.findViewById(R.id.rv_search_trips)
+        recyclerView.layoutManager = LinearLayoutManager(inflater.context)
+
+
+        val tripAdapter = TripAdapter(inflater.context, OPTIONS) {
+            onClickTripItem(it)
+        }
+
+        recyclerView.adapter = tripAdapter
+
+
         etSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val filteredList = OPTIONS.filter {
                     it.address.contains(query.toString(), true)
-                }
-                val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_trips)
+                }.toMutableList()
                 recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-                val tripAdapter = TripAdapter(inflater.context, filteredList.toMutableList())
-                recyclerView.adapter = tripAdapter
+                recyclerView.adapter = TripAdapter(inflater.context, filteredList) {
+                    filteredList.remove(it)
+                    onClickTripItem(it)
+                }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 val filteredList = OPTIONS.filter {
                     it.address.contains(newText.toString(), true)
-                }
-                val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_trips)
+                }.toMutableList()
                 recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-                val tripAdapter = TripAdapter(inflater.context, filteredList.toMutableList())
-                recyclerView.adapter = tripAdapter
+                recyclerView.adapter = TripAdapter(inflater.context, filteredList) {
+                    filteredList.remove(it)
+                    onClickTripItem(it)
+                }
                 return true
             }
         })
 
-        val recyclerView = view.findViewById<RecyclerView>(R.id.rv_search_trips)
-        recyclerView.layoutManager = LinearLayoutManager(inflater.context)
+        return view
+    }
 
+    private fun onClickTripItem(
+        it: TripItem,
+    ) {
         val db = DatabaseManager(this.requireContext(), "trips")
 
-
-        val tripAdapter = TripAdapter(inflater.context, OPTIONS) {
-            MaterialAlertDialogBuilder(this.requireContext())
-                .setTitle("Deseja se cadastrar na viagem?")
-                .setNeutralButton("Não") { _, _ -> }
-                .setPositiveButton("Sim") { _, _ ->
-                    db.insertTrip(it)
-                    OPTIONS.remove(it)
-                    recyclerView.adapter?.notifyDataSetChanged()
-                }.show()
-        }
-
-
-
-        recyclerView.adapter = tripAdapter
-        return view
+        MaterialAlertDialogBuilder(this.requireContext())
+            .setTitle("Deseja se cadastrar na viagem?")
+            .setNeutralButton("Não") { _, _ -> }
+            .setPositiveButton("Sim") { _, _ ->
+                db.insertTrip(it)
+                OPTIONS.remove(it)
+                recyclerView.adapter?.notifyDataSetChanged()
+            }.show()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
