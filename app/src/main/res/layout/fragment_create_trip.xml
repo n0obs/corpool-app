@@ -6,124 +6,162 @@
     android:layout_height="match_parent"
     tools:context=".ui.trip.create.CreateTripFragment">
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tv_destiny"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:text="@string/tv_destiny"
+        android:text="@string/tv_create"
         android:textSize="32sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
-        android:id="@+id/et_destiny"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:hint="@string/et_destiny"
-        android:inputType="text"
-        app:layout_constraintTop_toBottomOf="@id/tv_destiny" />
-
-    <fragment
-        android:id="@+id/map"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="200dp"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@id/et_destiny" />
-
-
     <LinearLayout
-        android:id="@+id/ll_price"
+        android:id="@+id/ll_fields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@id/map">
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_destiny"
+        app:layout_constraintVertical_bias="0.300">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/tv_price"/>
-
-
-    <EditText
-        android:id="@+id/et_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        app:layout_constraintTop_toBottomOf="@id/map"
-        android:inputType="numberDecimal"
-        android:textColorHint="@color/common_google_signin_btn_text_dark_disabled"
-        android:textAlignment="textEnd"
-        android:hint="@string/et_price"
-        />
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/ll_date"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_price">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/tv_trip_date"/>
-
-        <Button
-            android:id="@+id/btn_select_date"
+        <LinearLayout
+            android:id="@+id/define_location_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:text="@string/empty_data"/>
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <fragment
+                android:id="@+id/et_destiny"
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/et_destiny"
+                android:inputType="text"
+                app:layout_constraintTop_toBottomOf="@id/tv_destiny" />
+
+            <fragment
+                android:id="@+id/map"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/et_destiny" />
+
+        </LinearLayout>
 
 
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/ll_date_time"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="20dp"
-        app:layout_constraintTop_toBottomOf="@id/ll_date">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/tv_trip_date_time"/>
-
-        <Button
-            android:id="@+id/btn_select_date_time"
+        <LinearLayout
+            android:id="@+id/define_price_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
-            android:text="@string/empty_data"/>
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:visibility="gone">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_price"
+                android:textSize="20sp" />
+
+
+            <EditText
+                android:id="@+id/et_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:autofillHints="Defina o preço"
+                android:hint="@string/et_price"
+                android:inputType="numberDecimal"
+                android:textAlignment="textEnd"
+                android:textColorHint="@color/common_google_signin_btn_text_dark_disabled"
+                app:layout_constraintTop_toBottomOf="@id/map" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/define_start_date_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="25dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/ll_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_trip_date"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btn_select_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:text="@string/empty_data" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/ll_date">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tv_trip_date_time"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btn_select_date_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:text="@string/empty_data" />
+
+
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
 
     <Button
-        android:id="@+id/btn_create_trip"
-        android:layout_width="match_parent"
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_margin="25dp"
+        android:text="@string/next"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="60dp"
-        android:text="@string/btn_create_trip"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="25dp"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,31 +5,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.noobs.corpool.R
 import br.com.noobs.corpool.adapter.TripAdapter
-import br.com.noobs.corpool.database.DatabaseManager
-import br.com.noobs.corpool.model.TripItem
 
 class HomeFragment : Fragment() {
 
+    private val homeViewModel: HomeViewModel by viewModels()
+    private lateinit var recyclerView: RecyclerView
+
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel = inflater.inflate(R.layout.fragment_home, container, false)
+    ): View? {
+        val inflate = inflater.inflate(R.layout.fragment_home, container, false)
 
-        val recyclerView = homeViewModel.findViewById<RecyclerView>(R.id.rv_trips)
+        val tripAdapter = TripAdapter(inflater.context, mutableListOf())
+
+
+        homeViewModel.getListTrips().observe(viewLifecycleOwner) {
+            tripAdapter.setData(it)
+        }
+
+
+        recyclerView = inflate.findViewById(R.id.rv_trips)
         recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-        recyclerView.adapter = TripAdapter(inflater.context, getTripItems().toMutableList())
-        return homeViewModel
-    }
+        recyclerView.adapter = tripAdapter
 
-    private fun getTripItems(): List<TripItem> {
-        val db = DatabaseManager(this.requireContext(), "trips")
-        return db.getAll()
+        return inflate
     }
 }

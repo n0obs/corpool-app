@@ -4,69 +4,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import br.com.noobs.corpool.R
 import br.com.noobs.corpool.adapter.TripAdapter
 import br.com.noobs.corpool.adapter.TripSearchInterface
-import br.com.noobs.corpool.database.DatabaseManager
-import br.com.noobs.corpool.model.Location
 import br.com.noobs.corpool.model.TripItem
+import br.com.noobs.corpool.provider.TripProvider
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import java.time.ZonedDateTime
+import com.google.firebase.auth.FirebaseAuth
 
-
-val OPTIONS = ArrayList<TripItem>().apply {
-    add(
-        TripItem(
-            0,
-            "Campinas",
-            ZonedDateTime.now(),
-            Location("B Paulo, SP", 1.0, 1.0),
-            400.0
-        )
-    )
-    add(
-        TripItem(
-            1,
-            "Barueri",
-            ZonedDateTime.now(),
-            Location("B Paulo, SP", 1.0, 1.0),
-            500.0
-        )
-    )
-    add(
-        TripItem(
-            2,
-            "Osasco",
-            ZonedDateTime.now(),
-            Location("B Paulo, SP", 1.0, 1.0),
-            500.0
-        )
-    )
-    add(
-        TripItem(
-            3,
-            "Santos",
-            ZonedDateTime.now(),
-            Location("B Paulo, SP", 1.0, 1.0),
-            800.0
-        )
-    )
-}
 
 class ViewTripFragment : Fragment(), TripSearchInterface {
 
 
-    companion object {
-        fun newInstance() = ViewTripFragment()
-    }
+    private val viewModel: ViewTripViewModel by viewModels()
+    private val provider = TripProvider()
+    private val user = FirebaseAuth.getInstance().currentUser!!
 
-
-    private lateinit var viewModel: ViewTripViewModel
     private lateinit var recyclerView: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,63 +38,63 @@ class ViewTripFragment : Fragment(), TripSearchInterface {
         val etSearch = view.findViewById<SearchView>(R.id.et_search_trips)
         etSearch.clearFocus()
 
+        val tripAdapter = TripAdapter(inflater.context, mutableListOf()) {
+            onClickTripItem(it)
+        }
+
+        viewModel.getAvailableTrips(null).observe(viewLifecycleOwner) {
+            tripAdapter.setData(it)
+        }
+
 
         recyclerView = view.findViewById(R.id.rv_search_trips)
         recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-
-
-        recyclerView.adapter =  TripAdapter(inflater.context, OPTIONS) {
-            onClickTripItem(it)
-        }
+        recyclerView.adapter = tripAdapter
 
 
         etSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                val filteredList = OPTIONS.filter {
-                    it.address.contains(query.toString(), true)
-                }.toMutableList()
-                recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-                recyclerView.adapter = TripAdapter(inflater.context, filteredList) {
-                    onClickTripItem(it, filteredList)
+                viewModel.getAvailableTrips(query).observe(viewLifecycleOwner) {
+                    tripAdapter.setData(it)
                 }
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val filteredList = OPTIONS.filter {
-                    it.address.contains(newText.toString(), true)
-                }.toMutableList()
-                recyclerView.layoutManager = LinearLayoutManager(inflater.context)
-                recyclerView.adapter = TripAdapter(inflater.context, filteredList) {
-                    onClickTripItem(it, filteredList)
+                viewModel.getAvailableTrips(newText).observe(viewLifecycleOwner) {
+                    tripAdapter.setData(it)
                 }
                 return true
             }
+
         })
 
         return view
+
     }
 
     private fun onClickTripItem(
         it: TripItem,
-        filteredList: MutableList<TripItem>? = null
     ) {
-        val db = DatabaseManager(this.requireContext(), "trips")
-
         MaterialAlertDialogBuilder(this.requireContext())
             .setTitle("Deseja se cadastrar na viagem?")
             .setNeutralButton("Não") { _, _ -> }
             .setPositiveButton("Sim") { _, _ ->
-                db.insertTrip(it)
-                OPTIONS.remove(it)
-                filteredList?.remove(it)
-                recyclerView.adapter?.notifyDataSetChanged()
+                provider.addPassenger(it.id!!, user.uid, {
+                    Toast.makeText(
+                        this.requireContext(),
+                        "Você foi adicionado na viagem",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    findNavController().navigate(R.id.action_navigation_view_trips_to_navigation_home)
+                }, {
+                    Toast.makeText(
+                        this.requireContext(),
+                        "Não foi possível adicionar você na viagem",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                })
             }.show()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ViewTripViewModel::class.java)
     }
 
     override fun onItemClick(position: Int) {

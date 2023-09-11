@@ -6,7 +6,7 @@
     <string name="title_create_trip">Criar viagem</string>
     <string name="title_view_trips">Caronas\n</string>
     <string name="your_trips">Viagens</string>
-    <string name="tv_destiny">Definir destino</string>
+    <string name="tv_create">Criar viagem</string>
     <string name="et_destiny">Digite o endereço</string>
     <string name="tv_price">Preço:</string>
     <string name="et_price">100.00</string>
@@ -24,4 +24,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="logout">SAIR</string>
     <string name="title_user">Conta</string>
+    <string name="next">PRÓXIMO</string>
+    <string name="cancel">CANCELAR</string>
+    <string name="back">VOLTAR</string>
+    <string name="create">CRIAR</string>
 </resources>
