@@ -17,4 +17,11 @@
     <string name="empty_data">...</string>
     <string name="search_trips">Buscar</string>
     <string name="et_search_hint">Digite para onde deseja ir</string>
+
+
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="logout">SAIR</string>
+    <string name="title_user">Conta</string>
 </resources>

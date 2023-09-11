@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "960783908208",
+    "project_id": "corpool-1d9c0",
+    "storage_bucket": "corpool-1d9c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960783908208:android:0be180222addeae02c23b5",
+        "android_client_info": {
+          "package_name": "br.com.noobs.corpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960783908208-hnnskknpqqtglq96sbhsh5a2sa5c7j4m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.noobs.corpool",
+            "certificate_hash": "58d82f217b5f32b8d04125fbb00ee528b1fb0b40"
+          }
+        },
+        {
+          "client_id": "960783908208-4mv05tsd8nbrgqfk7l3eesiussktjqk4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwynSG3kdlYDEDus_sSPldhoReKO3CCsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960783908208-4mv05tsd8nbrgqfk7l3eesiussktjqk4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

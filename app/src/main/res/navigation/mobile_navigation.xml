@@ -15,7 +15,7 @@
         android:id="@+id/navigation_create_trip"
         android:name="br.com.noobs.corpool.ui.trip.create.CreateTripFragment"
         android:label="@string/title_create_trip"
-        tools:layout="@layout/fragment_create_trip" >
+        tools:layout="@layout/fragment_create_trip">
         <action
             android:id="@+id/action_navigation_create_trip_to_navigation_home"
             app:destination="@id/navigation_home"
@@ -29,6 +29,20 @@
         android:id="@+id/navigation_view_trips"
         android:name="br.com.noobs.corpool.ui.trip.view.ViewTripFragment"
         android:label="@string/title_view_trips"
-        tools:layout="@layout/fragment_view_trip" />
+        tools:layout="@layout/fragment_view_trip" >
+        <action
+            android:id="@+id/action_navigation_view_trips_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="br.com.noobs.corpool.ui.user.UserFragment"
+        android:label="@string/title_user"
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_navigation_user_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
 
 </navigation>
