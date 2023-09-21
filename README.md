@@ -1,7 +1,10 @@
-# corpool-app
+# Corpool-app
 # Instruções para Utilização do Aplicativo e Repositório Git
 
 Somos o grupo Noobs e estamos disponibilizando instruções para a utilização do nosso aplicativo e repositório Git.
+
+## Arquitetura do Corpool APP
+![image](https://github.com/n0obs/corpool-app/assets/93411725/e679378c-29d3-41e1-b333-32bf7528beef)
 
 ## Repositório Git
 - O link para o nosso repositório Git é 
