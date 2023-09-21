@@ -21,7 +21,10 @@ Somos o grupo Noobs e estamos disponibilizando instruções para a utilização 
 ## Aplicativo
 - Disponibilizamos um APK com todas as funcionalidades 100% funcionais.
 - O APK é compatível com Android 13.
-- O mesmo se encontra no repositório como APP-RELEASE.apk, porém também está disponivel para download no link abaixo.
+- Se faz necessário baixar no device o SDK 33 (Android 13.0 Google APIs x86_64) ![image](https://github.com/n0obs/corpool-app/assets/93411725/b73cfced-21bc-4414-b713-3f98e51f5b8e)
+- Após a instalação do do SDK, pode rodar o aplicativo normalmente.
+- Dentro do aplicativo, na tela inicial o usuário pode escolher a forma de login e criar um perfil para poder acessar o mesmo.   
+- O mesmo se encontra no repositório como APP-RELEASE.apk, porém também está disponivel para download no link abaixo. ![image](https://github.com/n0obs/corpool-app/assets/93411725/63a17c92-7e06-4da3-b549-7b89eff4c4a5)
 - Link para download do APK: https://drive.google.com/drive/folders/1ldhPf8bAibRV1WEkI9x9aMUhDXT9Z_qq?usp=sharing
 
 ## Pitch do Corpool
