@@ -4,7 +4,7 @@
 Somos o grupo Noobs e estamos disponibilizando instruções para a utilização do nosso aplicativo e repositório Git.
 
 ## Arquitetura do Corpool APP
-![image](https://github.com/n0obs/corpool-app/assets/93411725/e679378c-29d3-41e1-b333-32bf7528beef)
+![image](https://github.com/n0obs/corpool-app/assets/93411725/f39fc8a4-cb02-468c-a449-7322bed1bfcc)
 
 ## Repositório Git
 - O link para o nosso repositório Git é 
