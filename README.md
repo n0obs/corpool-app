@@ -22,7 +22,7 @@ Somos o grupo Noobs e estamos disponibilizando instruções para a utilização 
 ## Aplicativo
 - Disponibilizamos um APK com todas as funcionalidades 100% funcionais.
 - O APK é compatível com Android 13.
-
+- O mesmo se encontra no repositório como APP-RELEASE.apk, porém também está disponivel para download no link abaixo.
 - Link para download do APK: https://drive.google.com/drive/folders/1ldhPf8bAibRV1WEkI9x9aMUhDXT9Z_qq?usp=sharing
 
 ## Pitch do Corpool
