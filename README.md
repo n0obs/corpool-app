@@ -14,7 +14,7 @@ Somos o grupo Noobs e estamos disponibilizando instruções para a utilização 
 1. Após baixar o código, é necessário adicionar uma chave na pasta `Gradle >> Local.properties`.
 2. Coloque a seguinte chave:
    ```
-  API_KEY=AIzaSyAAH2blGHwf3M4IVhbCoYIWySUyx2wERek
+    API_KEY=AIzaSyAAH2blGHwf3M4IVhbCoYIWySUyx2wERek
    ```
    **Nota:** O uso de mapas não funcionará devido à autenticação do aplicativo. Os tokens de API externos estão bloqueados com a assinatura do aplicativo, o que significa que algumas funcionalidades podem não funcionar ao executar o projeto.
 
