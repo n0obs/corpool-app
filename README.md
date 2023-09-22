@@ -19,7 +19,8 @@ Somos o grupo Noobs e estamos disponibilizando instruções para a utilização 
    ```
     API_KEY=AIzaSyAAH2blGHwf3M4IVhbCoYIWySUyx2wERek
    ```
-   **Nota:** O uso de mapas não funcionará devido à autenticação do aplicativo. Os tokens de API externos estão bloqueados com a assinatura do aplicativo, o que significa que algumas funcionalidades podem não funcionar ao executar o projeto.
+   **Nota:** O uso de mapas não funcionará devido à autenticação do aplicativo. Os tokens de API externos estão bloqueados com a assinatura do aplicativo (por motivos de segurança), o que significa que algumas funcionalidades podem não funcionar ao executar o projeto.
+   Porém no apk tudo estará funcionando 100%
 
 ## Aplicativo
 - Disponibilizamos um APK com todas as funcionalidades 100% funcionais.
